@@ -11,12 +11,13 @@ import Footer from "@/components/shared/footer";
 import Summary from "@/components/checkout/summary";
 import { checkoutSchema, type CheckoutForm } from "@/schemas/checkoutschema";
 import { Input } from "@/components/ui/input";
-
+import OrderSuccessModal from "@/components/checkout/ordersuccessmodal";
 const CheckOut = () => {
   const { cart, clearCart } = useCartStore();
   const [paymentMethod, setPaymentMethod] = useState<"e-money" | "cod">(
     "e-money"
   );
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const {
     register,
@@ -29,8 +30,10 @@ const CheckOut = () => {
 
   const onSubmit = (data: CheckoutForm) => {
     console.log({ data, cart });
-    alert("Order placed successfully!");
+
+    // alert("Order placed successfully!");
     clearCart();
+    setShowModal(true);
   };
 
   return (
@@ -69,7 +72,9 @@ const CheckOut = () => {
                     className=""
                   />
                   {errors.name && (
-                    <p className="error">{errors.name.message}</p>
+                    <p className="text-red-500 font-bold text-xs">
+                      {errors.name.message}
+                    </p>
                   )}
                 </div>
 
@@ -86,7 +91,9 @@ const CheckOut = () => {
                     placeholder="alexei@mail.com"
                   />
                   {errors.email && (
-                    <p className="error">{errors.email.message}</p>
+                    <p className="text-red-500 font-bold text-xs">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
 
@@ -103,7 +110,9 @@ const CheckOut = () => {
                     placeholder="+1 202-555-0136"
                   />
                   {errors.phone && (
-                    <p className="error">{errors.phone.message}</p>
+                    <p className="text-red-500 font-bold text-xs">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -129,7 +138,9 @@ const CheckOut = () => {
                     placeholder="1137 Williams Avenue"
                   />
                   {errors.address && (
-                    <p className="error">{errors.address.message}</p>
+                    <p className="text-red-500 font-bold text-xs">
+                      {errors.address.message}
+                    </p>
                   )}
                 </div>
 
@@ -145,7 +156,11 @@ const CheckOut = () => {
                     id="zipcode"
                     placeholder="ZIP Code"
                   />
-                  {errors.zip && <p className="error">{errors.zip.message}</p>}
+                  {errors.zip && (
+                    <p className="text-red-500 font-bold text-xs">
+                      {errors.zip.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-[9px]">
@@ -161,7 +176,9 @@ const CheckOut = () => {
                     placeholder="New York"
                   />
                   {errors.city && (
-                    <p className="error">{errors.city.message}</p>
+                    <p className="text-red-500 font-bold text-xs">
+                      {errors.city.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -180,7 +197,9 @@ const CheckOut = () => {
                   className=""
                 />
                 {errors.country && (
-                  <p className="error">{errors.country.message}</p>
+                  <p className="text-red-500 font-bold text-xs">
+                    {errors.country.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -264,6 +283,17 @@ const CheckOut = () => {
           {/* Right Side */}
           <Summary cart={cart} />
         </form>
+
+        {showModal && (
+          <OrderSuccessModal
+            cart={cart}
+            grandTotal={cart.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            )}
+            onClose={() => setShowModal(false)}
+          />
+        )}
       </main>
       <Footer />
     </>
