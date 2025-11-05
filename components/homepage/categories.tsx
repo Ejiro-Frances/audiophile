@@ -19,7 +19,6 @@ const Categories = () => {
           {/* bg pattern */}
           <div
             data-testid="test-pattern-background"
-            // w-[558px] h-[558px]
             className="absolute -top-40 lg:top-0 -left-40 lg:left-0 z-0 bg-[url('/assets/home/desktop/pattern-circles.svg')] bg-cover bg-no-repeat w-[300px] lg:w-[944px] h-full lg:h-[944px]"
             role="presentation"
             aria-hidden="true"
@@ -39,29 +38,6 @@ const Categories = () => {
               priority
             />
           </div>
-          {/* <picture
-            data-testid="test-speaker-image"
-            className="relative translate-y-12 lg:translate-y-14"
-          >
-            <source
-              media="(min-width: 1024px)"
-              srcSet="/assets/home/desktop/image-speaker-zx9.png"
-            />
-
-            <source
-              media="(min-width: 640px)"
-              srcSet="/assets/home/tablet/image-speaker-zx9.png"
-            />
-
-            <Image
-              src="/assets/home/mobile/image-speaker-zx9.png"
-              alt="ZX9 Speaker"
-              width={410.23}
-              height={493}
-              priority
-              className="mx-auto object-contain"
-            />
-          </picture> */}
 
           {/* text */}
           <div
@@ -83,7 +59,7 @@ const Categories = () => {
             </p>
             <Link
               data-testid="test-speaker-zx9-link"
-              href="#"
+              href="/products/zx9-speaker"
               aria-label="View ZX9 Speaker product"
               className="flex items-center justify-center w-40 h-12 bg-black hover:bg-[#4C4C4C] text-white font-bold text-[13px] uppercase tracking-[1px] cursor-pointer transition-all duration-200 ease-in-out"
             >
@@ -110,7 +86,7 @@ const Categories = () => {
             </h4>
             <Link
               data-testid="test-speaker-zx7-link"
-              href="#"
+              href="/products/zx7-speaker"
               aria-label="View ZX7 Speaker product"
               className="flex items-center justify-center w-40 h-12 bg-transparent border border-black text-black hover:bg-black hover:text-white  font-bold text-[13px] uppercase tracking-[1px] cursor-pointer transition-all duration-200 ease-in-out"
             >
@@ -161,7 +137,7 @@ const Categories = () => {
             </h4>
             <Link
               data-testid="test-earphones-link"
-              href="#"
+              href="/products/yx1-earphones"
               aria-label="View YX1 Earphones product"
               className="flex items-center justify-center w-40 h-12 bg-transparent border border-black text-black hover:bg-black hover:text-white  font-bold text-[13px] uppercase tracking-[1px] cursor-pointer transition-all duration-200 ease-in-out"
             >
