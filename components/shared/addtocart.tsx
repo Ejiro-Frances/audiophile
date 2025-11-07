@@ -28,9 +28,9 @@ const AddToCart = ({ product }: AddToCartProps) => {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="grid grid-cols-2 items-center gap-4 w-full">
       {/* Quantity control */}
-      <div className="flex justify-around items-center bg-[#F1F1F1] w-[120px] py-2 rounded">
+      <div className="flex justify-around items-center h-12 bg-[#F1F1F1] py-2 rounded">
         <button
           onClick={decrement}
           aria-label="Decrease quantity"
@@ -51,7 +51,7 @@ const AddToCart = ({ product }: AddToCartProps) => {
       {/* Add to Cart */}
       <button
         onClick={handleAdd}
-        className="inline-flex items-center justify-center w-40 h-12 bg-primary hover:bg-[#FBAF85] text-white font-bold text-[13px] uppercase tracking-[1px] transition-all duration-300 ease-in-out"
+        className="inline-flex items-center justify-center h-12 bg-primary hover:bg-[#FBAF85] text-white font-bold text-[13px] uppercase tracking-[1px] transition-all duration-300 ease-in-out"
       >
         Add to Cart
       </button>

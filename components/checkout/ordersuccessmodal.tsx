@@ -6,30 +6,30 @@ import { useRouter } from "next/navigation";
 import type { CartItem } from "@/stores/cartStore";
 
 interface OrderSuccessModalProps {
-  cart: CartItem[];
-  grandTotal: number;
-  onClose?: () => void;
+  order: {
+    name: string;
+    email: string;
+    order: CartItem[];
+    total: number;
+  };
+  onClose: () => void;
 }
 
-const OrderSuccessModal = ({
-  cart,
-  grandTotal,
-  onClose,
-}: OrderSuccessModalProps) => {
+const OrderSuccessModal = ({ order, onClose }: OrderSuccessModalProps) => {
   const router = useRouter();
 
-  const firstItem = cart[0];
-  const otherCount = cart.length - 1;
+  const firstItem = order.order[0];
+  const otherCount = order.order.length - 1;
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="bg-white w-[90%] max-w-md rounded-2xl p-8 shadow-xl animate-in fade-in zoom-in duration-200">
-        {/* ✅ Success Icon */}
+        {/* Success Icon */}
         <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-6">
           <Check className="text-white w-6 h-6" />
         </div>
 
-        {/* ✅ Header */}
+        {/* Header */}
         <h2 className="text-[24px] md:text-[28px] font-bold uppercase leading-tight mb-2">
           Thank You <br /> For Your Order
         </h2>
@@ -37,7 +37,7 @@ const OrderSuccessModal = ({
           You will receive an email confirmation shortly.
         </p>
 
-        {/* ✅ Order Summary */}
+        {/* Order Summary */}
         <div className="rounded-lg overflow-hidden flex flex-col md:flex-row">
           {/* Left: Cart Summary */}
           <div className="bg-[#F1F1F1] flex-1 p-4 space-y-4">
@@ -73,14 +73,14 @@ const OrderSuccessModal = ({
           {/* Right: Grand Total */}
           <div className="bg-black text-white flex flex-col justify-center items-start p-4 md:w-[45%]">
             <span className="text-xs uppercase text-white/60">Grand Total</span>
-            <p className="text-lg font-bold">${grandTotal.toLocaleString()}</p>
+            <p className="text-lg font-bold">${order.total.toLocaleString()}</p>
           </div>
         </div>
 
-        {/* ✅ Button */}
+        {/* Button */}
         <button
           onClick={() => {
-            onClose?.();
+            onClose();
             router.push("/");
           }}
           className="mt-6 w-full h-12 bg-primary text-white uppercase font-bold rounded-md hover:bg-[#FBAF85] transition"

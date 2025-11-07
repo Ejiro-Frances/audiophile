@@ -14,7 +14,7 @@ const Categories = () => {
         <section
           data-testid="test-speaker-zx9-container"
           aria-label="ZX9 Speaker promotion"
-          className="relative bg-primary flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-24 lg:gap-[138px] min-h-[600px] lg:h-[560px] w-full mx-auto pl-[117.49px] pr-[95px] pb-10 rounded-xl overflow-hidden"
+          className="relative bg-primary flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-24 lg:gap-[138px] w-full mx-auto pl-[117.49px] pr-[95px] pb-10 rounded-xl overflow-hidden"
         >
           {/* bg pattern */}
           <div
@@ -61,7 +61,7 @@ const Categories = () => {
               data-testid="test-speaker-zx9-link"
               href="/products/zx9-speaker"
               aria-label="View ZX9 Speaker product"
-              className="flex items-center justify-center w-40 h-12 bg-black hover:bg-[#4C4C4C] text-white font-bold text-[13px] uppercase tracking-[1px] cursor-pointer transition-all duration-200 ease-in-out"
+              className="flex items-center justify-center w-40 h-12 bg-black hover:bg-white text-white hover:text-black border border-black font-bold text-[13px] uppercase tracking-[1px] cursor-pointer transition-all duration-200 ease-in-out"
             >
               See product
             </Link>

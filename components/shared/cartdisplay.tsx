@@ -11,13 +11,13 @@ const CartDisplay = () => {
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <section className="fixed top-[91px] left-0 z-50 bg-black/60 w-full h-full">
-      <div className="absolute top-5 md:right-10 w-[327px] md:w-[377px] bg-white rounded-xl min-h-80 p-[31px]">
+    <section className="fixed top-20 left-0 z-50 bg-black/60 w-full h-full">
+      <div className="absolute top-5 md:top-10 inset-x-0 md:inset-x-auto md:right-10 w-[90%] md:w-[377px] bg-white rounded-xl min-h-80 p-[31px] mx-auto md:mx-0">
         {cart.length === 0 ? (
           <>
             <div className="flex justify-between items-center">
               <h6 className="text-lg text-black font-bold uppercase tracking-[1.29px]">
-                CART
+                CART <span>({cart.length})</span>
               </h6>
             </div>
             <p className="text-[15px] leading-[25px] text-black/50 text-center pt-20">
@@ -108,7 +108,7 @@ const CartDisplay = () => {
             {/* Checkout */}
             <Link
               href="/checkout"
-              className="flex justify-center items-center bg-primary uppercase text-white w-full h-12 mt-6 hover:bg-[#FBAF85] transition"
+              className="flex justify-center items-center bg-primary uppercase text-white w-full h-12 mt-6 hover:bg-[#FBAF85] transition cursor-pointer"
             >
               Checkout
             </Link>

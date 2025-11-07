@@ -1,18 +1,12 @@
 import Image from "next/image";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { CartItem } from "../../stores/cartStore";
 
 interface SummaryProps {
   cart: CartItem[];
+  isLoading: boolean;
 }
 
-const Summary = ({ cart }: SummaryProps) => {
+export default function Summary({ cart, isLoading }: SummaryProps) {
   const shippingCost = 10;
   const subtotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -27,17 +21,20 @@ const Summary = ({ cart }: SummaryProps) => {
         Summary
       </h6>
 
+      {/* Items */}
       <ul className="space-y-6">
         {cart.map((item) => (
           <li key={item.id} className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <Image
-                src={item.image}
-                width={64}
-                height={64}
-                alt={item.name}
-                className="rounded-md"
-              />
+              <div className="relative">
+                <Image
+                  src={item.image}
+                  width={64}
+                  height={64}
+                  alt={item.name}
+                  className="rounded-md"
+                />
+              </div>
               <div>
                 <p className="font-bold text-[15px] leading-[25px] text-black">
                   {item.name}
@@ -54,6 +51,7 @@ const Summary = ({ cart }: SummaryProps) => {
         ))}
       </ul>
 
+      {/* Totals */}
       <div className="mt-8 space-y-2">
         <div className="flex justify-between">
           <span className="text-black/50 uppercase text-[15px] leading-[25px] ">
@@ -89,15 +87,41 @@ const Summary = ({ cart }: SummaryProps) => {
         </div>
       </div>
 
-      {/* Submit button inside the form parent */}
+      {/* Submit button */}
       <button
         type="submit"
-        className="w-full h-12 bg-primary text-white text-[13px] leading-none tracking-[1px] uppercase font-bold hover:bg-[#FBAF85] transition mt-4"
+        disabled={isLoading}
+        className={`mt-6 w-full h-12 flex items-center justify-center gap-3 bg-primary text-white uppercase font-bold rounded-md transition 
+          ${isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#FBAF85]"}`}
       >
-        Continue & Pay
+        {isLoading ? (
+          <>
+            <svg
+              className="w-5 h-5 animate-spin"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              />
+            </svg>
+            Processing...
+          </>
+        ) : (
+          "Continue & Pay"
+        )}
       </button>
     </aside>
   );
-};
-
-export default Summary;
+}

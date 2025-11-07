@@ -44,9 +44,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             $ {product.price.toLocaleString()}
           </p>
 
-          <div className="grid grid-cols-2 gap-4">
-            <AddToCart product={product} />
-          </div>
+          <AddToCart product={product} />
         </aside>
       </article>
 
@@ -69,7 +67,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         {/* list */}
         <ul className="list-style-none space-y-2">
           {product.includes.map((p, i) => (
-            <li key={i * p.quantity} className="space-x-6">
+            <li key={i} className="space-x-6">
               <span className="text-primary text-[15px] leading-[25px] font-bold">
                 {p.quantity}x
               </span>
@@ -126,7 +124,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
               <Link
                 href={`/products/${item.slug}`}
-                className="bg-primary text-white text-sm tracking-wider px-8 py-3 uppercase hover:bg-primary/80 transition rounded-md"
+                className="bg-primary text-white text-sm tracking-wider px-8 py-3 uppercase hover:bg-primary/80 transition rounded-md cursor-pointer"
               >
                 See Product
               </Link>
@@ -140,68 +138,3 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 };
 
 export default ProductDetails;
-
-// import Image from "next/image";
-// import Link from "next/link";
-// import React from "react";
-
-// interface Product {
-//   id: number;
-//   slug: string;
-//   name: string;
-//   description: string;
-//   features: string;
-//   image: string;
-//   price: number;
-//   new: boolean;
-// }
-
-// interface ProductDetailsProps {
-//   product: Product;
-// }
-
-// const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
-//   return (
-//     <section
-//       data-testid={`test-product-detail-${product.slug}`}
-//       aria-label={`Product detail for ${product.name}`}
-//       className="max-w-[1110px] mx-auto px-4 py-24 grid md:grid-cols-2 gap-16 items-center"
-//     >
-//       {/* Product Image */}
-//       <div className="relative w-full h-[560px] rounded-xl overflow-hidden">
-//         <Image
-//           src={product.image}
-//           alt={product.name}
-//           fill
-//           className="object-cover"
-//           priority
-//         />
-//       </div>
-
-//       {/* Product Info */}
-//       <div className="space-y-6">
-//         {product.new && (
-//           <p className="text-primary text-sm uppercase tracking-[10px]">
-//             New Product
-//           </p>
-//         )}
-//         <h1 className="text-[32px] md:text-[40px] font-bold uppercase tracking-[1.5px]">
-//           {product.name}
-//         </h1>
-//         <p className="text-black/50 text-[15px] leading-[25px]">
-//           {product.description}
-//         </p>
-//         <p className="font-bold text-lg">${product.price}</p>
-
-//         <Link
-//           href="/checkout"
-//           className="inline-flex items-center justify-center w-40 h-12 bg-primary hover:bg-[#FBAF85] text-white font-bold text-[13px] uppercase tracking-[1px] transition-all duration-300 ease-in-out"
-//         >
-//           Add to Cart
-//         </Link>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default ProductDetails;

@@ -1,6 +1,6 @@
 "use client";
-
 import { useState } from "react";
+import type { CartItem } from "@/stores/cartStore";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,10 +14,17 @@ import { Input } from "@/components/ui/input";
 import OrderSuccessModal from "@/components/checkout/ordersuccessmodal";
 const CheckOut = () => {
   const { cart, clearCart } = useCartStore();
+  const [orderSnapshot, setOrderSnapshot] = useState<{
+    name: string;
+    email: string;
+    order: CartItem[];
+    total: number;
+  } | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<"e-money" | "cod">(
     "e-money"
   );
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -28,12 +35,30 @@ const CheckOut = () => {
     defaultValues: { paymentMethod: "e-money" },
   });
 
-  const onSubmit = (data: CheckoutForm) => {
-    console.log({ data, cart });
+  const onSubmit = async (data: CheckoutForm) => {
+    setIsLoading(true);
 
-    // alert("Order placed successfully!");
-    clearCart();
-    setShowModal(true);
+    const orderData = {
+      name: data.name,
+      email: data.email,
+      order: cart,
+      total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    };
+
+    try {
+      await fetch("/api/send-confirmation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
+
+      setOrderSnapshot(orderData);
+      setShowModal(true);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -281,17 +306,17 @@ const CheckOut = () => {
           </section>
 
           {/* Right Side */}
-          <Summary cart={cart} />
+          <Summary cart={cart} isLoading={isLoading} />
         </form>
 
-        {showModal && (
+        {showModal && orderSnapshot && (
           <OrderSuccessModal
-            cart={cart}
-            grandTotal={cart.reduce(
-              (sum, item) => sum + item.price * item.quantity,
-              0
-            )}
-            onClose={() => setShowModal(false)}
+            order={orderSnapshot}
+            onClose={() => {
+              clearCart();
+              setShowModal(false);
+              setOrderSnapshot(null);
+            }}
           />
         )}
       </main>
