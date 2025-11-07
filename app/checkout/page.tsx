@@ -72,7 +72,7 @@ const CheckOut = () => {
           className="grid grid-cols-1 lg:grid-cols-[60fr_40fr] gap-12"
         >
           {/* Left Side */}
-          <section className="bg-white rounded-xl py-[54] px-12 space-y-8 shadow-md">
+          <section className="bg-white rounded-xl py-[54] px-[27.5px] md:px-12 space-y-8 shadow-md">
             <h3 className="text-[28px] md:text-[32px] lg:leading-9 font-bold uppercase tracking-[1px] md:tracking-[1.14px]">
               Checkout
             </h3>
@@ -83,62 +83,84 @@ const CheckOut = () => {
                 Billing Details
               </p>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-6">
-                <div className="flex flex-col gap-[9px]">
-                  <label
-                    htmlFor="name"
-                    className="text-xs tracking-[-0.21px] font-bold"
-                  >
-                    Name
-                  </label>
+                <div>
+                  <div className="flex justify-between mb-[9px]">
+                    <label
+                      htmlFor="name"
+                      className={`text-xs tracking-[-0.21px] font-bold ${
+                        errors.name ? "text-[#CD2C2C]" : "text-black"
+                      }`}
+                    >
+                      Name
+                    </label>
+                    {errors.name && (
+                      <p className="text-[#CD2C2C] text-xs tracking-[-0.21px]">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
                   <Input
                     {...register("name")}
                     id="name"
                     placeholder="Alexei Ward"
-                    className=""
+                    className={
+                      errors.name ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                    }
                   />
-                  {errors.name && (
-                    <p className="text-red-500 font-bold text-xs">
-                      {errors.name.message}
-                    </p>
-                  )}
                 </div>
 
+                {/* Email */}
                 <div className="flex flex-col gap-[9px]">
-                  <label
-                    htmlFor="email"
-                    className="text-xs tracking-[-0.21px] font-bold"
-                  >
-                    Email Address
-                  </label>
+                  <div className="flex justify-between ">
+                    <label
+                      htmlFor="email"
+                      className={`text-xs tracking-[-0.21px] font-bold ${
+                        errors.email ? "text-[#CD2C2C]" : "text-black"
+                      }`}
+                    >
+                      Email Address
+                    </label>
+                    {errors.email && (
+                      <p className="text-[#CD2C2C] text-xs tracking-[-0.21px ">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
                   <Input
                     {...register("email")}
                     id="email"
                     placeholder="alexei@mail.com"
+                    className={
+                      errors.email ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                    }
                   />
-                  {errors.email && (
-                    <p className="text-red-500 font-bold text-xs">
-                      {errors.email.message}
-                    </p>
-                  )}
                 </div>
 
+                {/* phone number */}
                 <div className="flex flex-col gap-[9px]">
-                  <label
-                    htmlFor="phoneNumber"
-                    className="text-xs tracking-[-0.21px] font-bold"
-                  >
-                    Phone Number
-                  </label>
+                  <div className="flex justify-between ">
+                    <label
+                      htmlFor="phoneNumber"
+                      className={`text-xs tracking-[-0.21px] font-bold ${
+                        errors.phone ? "text-[#CD2C2C]" : "text-black"
+                      }`}
+                    >
+                      Phone Number
+                    </label>
+                    {errors.phone && (
+                      <p className="text-[#CD2C2C] text-xs tracking-[-0.21px]">
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </div>
                   <Input
                     {...register("phone")}
                     id="phoneNumber"
                     placeholder="+1 202-555-0136"
+                    className={
+                      errors.phone ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                    }
                   />
-                  {errors.phone && (
-                    <p className="text-red-500 font-bold text-xs">
-                      {errors.phone.message}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -148,84 +170,116 @@ const CheckOut = () => {
               <p className="text-primary text-[13px] leading-[25px] font-bold uppercase tracking-[0.93px]">
                 Shipping Info
               </p>
+              {/* shipping address */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-6">
                 <div className="flex flex-col gap-[9px] lg:col-span-2">
-                  <label
-                    htmlFor="address"
-                    className="text-xs tracking-[-0.21px] font-bold"
-                  >
-                    Address
-                  </label>
+                  <div className="flex justify-between ">
+                    <label
+                      htmlFor="address"
+                      className={`text-xs tracking-[-0.21px] font-bold ${
+                        errors.address ? "text-[#CD2C2C]" : "text-black"
+                      }`}
+                    >
+                      Address
+                    </label>
+                    {errors.address && (
+                      <p className="text-[#CD2C2C] text-xs tracking-[-0.21px]">
+                        {errors.address.message}
+                      </p>
+                    )}
+                  </div>
 
                   <Input
                     {...register("address")}
                     id="address"
                     placeholder="1137 Williams Avenue"
+                    className={
+                      errors.address ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                    }
                   />
-                  {errors.address && (
-                    <p className="text-red-500 font-bold text-xs">
-                      {errors.address.message}
-                    </p>
-                  )}
                 </div>
 
+                {/* zip code */}
                 <div className="flex flex-col gap-[9px]">
-                  <label
-                    htmlFor="zipcode"
-                    className="text-xs tracking-[-0.21px] font-bold"
-                  >
-                    Zip Code
-                  </label>
+                  <div className="flex justify-between ">
+                    <label
+                      htmlFor="zipcode"
+                      className={`text-xs tracking-[-0.21px] font-bold ${
+                        errors.zip ? "text-[#CD2C2C]" : "text-black"
+                      }`}
+                    >
+                      Zip Code
+                    </label>
+                    {errors.zip && (
+                      <p className="text-[#CD2C2C] text-xs tracking-[-0.21px]">
+                        {errors.zip.message}
+                      </p>
+                    )}
+                  </div>
                   <Input
                     {...register("zip")}
                     id="zipcode"
                     placeholder="ZIP Code"
+                    className={
+                      errors.zip ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                    }
                   />
-                  {errors.zip && (
-                    <p className="text-red-500 font-bold text-xs">
-                      {errors.zip.message}
-                    </p>
-                  )}
                 </div>
 
+                {/* city */}
                 <div className="flex flex-col gap-[9px]">
-                  <label
-                    htmlFor="city"
-                    className="text-xs tracking-[-0.21px] font-bold"
-                  >
-                    City
-                  </label>
+                  <div className="flex justify-between ">
+                    <label
+                      htmlFor="city"
+                      className={`text-xs tracking-[-0.21px] font-bold ${
+                        errors.city ? "text-[#CD2C2C]" : "text-black"
+                      }`}
+                    >
+                      City
+                    </label>
+
+                    {errors.city && (
+                      <p className="text-[#CD2C2C] text-xs tracking-[-0.21px]">
+                        {errors.city.message}
+                      </p>
+                    )}
+                  </div>
                   <Input
                     {...register("city")}
                     id="city"
                     placeholder="New York"
+                    className={
+                      errors.city ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                    }
                   />
-                  {errors.city && (
-                    <p className="text-red-500 font-bold text-xs">
-                      {errors.city.message}
-                    </p>
-                  )}
                 </div>
               </div>
 
+              {/* country */}
               <div className="flex flex-col gap-[9px]">
-                <label
-                  htmlFor="country"
-                  className="text-xs tracking-[-0.21px] font-bold"
-                >
-                  Country
-                </label>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="country"
+                    className={`text-xs tracking-[-0.21px] font-bold ${
+                      errors.country ? "text-[#CD2C2C]" : "text-black"
+                    }`}
+                  >
+                    Country
+                  </label>
+                  {errors.country && (
+                    <p className="text-[#CD2C2C] text-xs tracking-[-0.21px]">
+                      {errors.country.message}
+                    </p>
+                  )}
+                </div>
                 <Input
                   {...register("country")}
                   id="country"
                   placeholder="United States"
-                  className=""
+                  className={
+                    errors.country ? "border-[#CD2C2C]" : "border-[#CFCFCF]"
+                  }
                 />
-                {errors.country && (
-                  <p className="text-red-500 font-bold text-xs">
-                    {errors.country.message}
-                  </p>
-                )}
               </div>
             </div>
 

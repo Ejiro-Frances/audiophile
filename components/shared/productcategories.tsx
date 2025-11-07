@@ -25,8 +25,9 @@ const ProductCategories = () => {
     <section
       data-testid="test-categories-section"
       aria-label="Product categories"
-      className="flex flex-col justify-end max-w-[1110px] mx-auto md:h-[284px] mt-10"
+      className="flex flex-col justify-end max-w-[1110px] mx-auto mt-10"
     >
+      {/* md:h-[284px] */}
       <div
         data-testid="test-categories-grid"
         className="grid grid-cols-1 sm:grid-cols-3 justify-center gap-16 sm:gap-8"
@@ -48,8 +49,8 @@ const ProductCategories = () => {
                 i === 0
                   ? "w-[79.92px] lg:w-[122.95px] h-[104px] lg:h-40 -mt-[52px] lg:-mt-20"
                   : i === 1
-                  ? "w-[84.04px] lg:w-[121.49px] h-[101px] lg:h-[146px] -mt-[52px] lg:-mt-[72.5px]"
-                  : "w-[103px] lg:w-[125px] h-[104px] lg:h-[126px] -mt-[52px] lg:-mt-[59px]"
+                    ? "w-[84.04px] lg:w-[121.49px] h-[101px] lg:h-[146px] -mt-[52px] lg:-mt-[72.5px]"
+                    : "w-[103px] lg:w-[125px] h-[104px] lg:h-[126px] -mt-[52px] lg:-mt-[59px]"
               }`}
             >
               <Image

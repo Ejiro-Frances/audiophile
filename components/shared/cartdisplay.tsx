@@ -11,23 +11,32 @@ const CartDisplay = () => {
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <section className="fixed top-20 left-0 z-50 bg-black/60 w-full h-full">
-      <div className="absolute top-5 md:top-10 inset-x-0 md:inset-x-auto md:right-10 w-[90%] md:w-[377px] bg-white rounded-xl min-h-80 p-[31px] mx-auto md:mx-0">
+    <section
+      className="fixed top-0 left-0 z-60 bg-black/60 w-full h-screen"
+      onClick={(e) => {
+        // Close only if the user clicked on the overlay itself, not inside the white box
+        if (e.target === e.currentTarget) {
+          const event = new CustomEvent("closeCart");
+          window.dispatchEvent(event);
+        }
+      }}
+    >
+      <div className="absolute top-[110px] inset-x-0 md:inset-x-auto md:right-10 w-[90%] md:w-[377px] bg-white rounded-xl min-h-80 py-[31px] pl-[31px] mx-auto md:mx-0 max-h-[80vh] transform transition-all duration-300 ease-out translate-x-5 opacity-0 animate-cartEnter">
         {cart.length === 0 ? (
           <>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center pr-[31px]">
               <h6 className="text-lg text-black font-bold uppercase tracking-[1.29px]">
                 CART <span>({cart.length})</span>
               </h6>
             </div>
-            <p className="text-[15px] leading-[25px] text-black/50 text-center pt-20">
+            <p className="text-[15px] leading-[25px] text-black/50 text-center pt-20 pr-[31px]">
               Cart is empty
             </p>
           </>
         ) : (
           <>
             {/* Header */}
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-6 pr-[31px]">
               <h6 className="text-lg text-black font-bold uppercase tracking-[1.29px]">
                 CART <span>({cart.length})</span>
               </h6>
@@ -40,7 +49,7 @@ const CartDisplay = () => {
             </div>
 
             {/* Cart Items */}
-            <ul className="space-y-6">
+            <ul className="space-y-6 overflow-y-auto max-h-[280px] pr-2.5">
               {cart.map((item) => (
                 <li
                   key={item.id}
@@ -96,7 +105,7 @@ const CartDisplay = () => {
             </ul>
 
             {/* Total */}
-            <div className="flex justify-between items-center mt-6">
+            <div className="flex justify-between items-center mt-6 pr-[31px]">
               <p className="uppercase text-black/50 text-[15px] leading-[25px]">
                 Total
               </p>
@@ -106,12 +115,14 @@ const CartDisplay = () => {
             </div>
 
             {/* Checkout */}
-            <Link
-              href="/checkout"
-              className="flex justify-center items-center bg-primary uppercase text-white w-full h-12 mt-6 hover:bg-[#FBAF85] transition cursor-pointer"
-            >
-              Checkout
-            </Link>
+            <div className="mt-6 mr-[31px]">
+              <Link
+                href="/checkout"
+                className="flex justify-center items-center bg-primary uppercase text-white w-full h-12  hover:bg-[#FBAF85] transition cursor-pointer"
+              >
+                Checkout
+              </Link>{" "}
+            </div>
           </>
         )}
       </div>

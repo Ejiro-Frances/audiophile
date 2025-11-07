@@ -13,25 +13,27 @@ const Header = () => {
   const pathname = usePathname();
   const { cart } = useCartStore();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isCartOpen, setisCartOpen] = useState<boolean>(false);
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isOpen) {
-      // Prevent background scroll
-      document.body.style.overflow = "hidden";
-    } else {
-      // Restore scrolling
-      document.body.style.overflow = "";
-    }
+    const shouldLockScroll = isOpen || isCartOpen;
 
-    // Cleanup in case component unmounts while open
+    document.body.style.overflow = shouldLockScroll ? "hidden" : "";
+
+    // Cleanup
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpen]);
+  }, [isOpen, isCartOpen]);
+
+  useEffect(() => {
+    const handleClose = () => setIsCartOpen(false);
+    window.addEventListener("closeCart", handleClose);
+    return () => window.removeEventListener("closeCart", handleClose);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleCart = () => setisCartOpen(!isCartOpen);
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   return (
     <header
@@ -107,7 +109,6 @@ const Header = () => {
           />
           {cart.length > 0 && (
             <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold leading-xs w-4 h-4 rounded-full flex items-center justify-center">
-              {/* {cart.reduce((total, item) => total + item.quantity, 0)} */}
               {cart.length}
             </span>
           )}

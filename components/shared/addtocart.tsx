@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import type { Product } from "@/types/product";
+import { toast } from "sonner";
 
 interface AddToCartProps {
   product: Product;
@@ -25,6 +26,7 @@ const AddToCart = ({ product }: AddToCartProps) => {
       },
       quantity
     );
+    toast.success("Product added to cart");
   };
 
   return (
